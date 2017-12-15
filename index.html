@@ -61,6 +61,35 @@
                 return grid;
             }
             
+            function getGrid(words) {
+                var grid = getRandomGrid();
+                var direction = ["u","d","l","r","ul","ur","dl","dr"];
+                var startCol = Math.floor(Math.random() * 12);
+                var startRow = Math.floor(Math.random() * 12);
+                
+                $.each(words, function(ind, word) {
+                    for(var i = startCol; i < 12; i++) {
+                        for (var j = startRow; j < 12; j++) {
+                            if(grid[i][j] == word[0]) {
+                                startCol = i;
+                                startRow = j;
+                                break;
+                            }
+                        }
+                    }
+                    var direction_ind = Math.floor(Math.random() * direction.length);
+                    
+                    // verify if there is enough space in the direction for the word. If there is no space move the startcol and startrow in order to make space.
+                     
+                    
+                    $.each(word.split(''), function(ind2, letter) {
+                        
+                    })
+                })
+                
+                return grid;
+            }
+            
             function populateGrid(grid) {
                 var grid_html = "";
                 
@@ -99,8 +128,8 @@
             
                 // Initialization(s)
                 
-                grid = getRandomGrid();
                 words = getWords();
+                grid = getGrid(words);
                 
                 
                 // Populate grid and words list
