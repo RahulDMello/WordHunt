@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Hello, world!</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        
+        <style>
+        
+            .borderless td, .borderless th {
+                border: none;
+            }
+        
+            @media screen and (min-width: 768px) {
+                #list {
+                    columns: 2;
+                    -webkit-columns: 2;
+                    -moz-columns: 2;
+                }
+            }
+            @media screen and (min-width: 992px) {
+                #list {
+                    columns: 3;
+                    -webkit-columns: 3;
+                    -moz-columns: 3;
+                }
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="container">
+            <table class="table borderless" id="letter-grid">
+            </table>
+            <div id="list"></div>
+        </div>
+        
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+        <script src="words.js"></script>
+        
+        <script>
+        
+            // Helper Function(s)
+            
+            function getRandomGrid(col=12, row=12) {
+                var grid = [];
+                for(var i = 0; i < col; i++) {
+                    grid.push([]);
+                    for(var j = 0; j < row; j++) {
+                        grid[i].push(String.fromCharCode(Math.floor(97 + Math.random() * 26)));
+                    }
+                }
+                return grid;
+            }
+            
+            function populateGrid(grid) {
+                var grid_html = "";
+                
+                $.each(grid, function(ind1, value) {
+                    grid_html += "<tr>";
+                    $.each(value, function(ind2, letter) {
+                        grid_html += "<td> " + letter + " </td>";
+                    });
+                    grid_html += "</tr>";
+                });
+                
+                $("#letter-grid").html(grid_html);
+            }
+            
+            function populateWordList(list) {
+                var list_html = "<ol>";
+                
+                $.each(list, function(ind, value) {
+                    list_html += "<li> " + value + " </li>";
+                });
+                
+                list_html += "</ol>";
+                $("#list").html(list_html);
+            }
+        
+        
+            // Declaration(s)
+            
+            var grid = [];
+            var words = [];
+            
+            
+            // Working
+            
+            $( document ).ready(function() {
+            
+                // Initialization(s)
+                
+                grid = getRandomGrid();
+                words = getWords();
+                
+                
+                // Populate grid and words list
+                populateGrid(grid);
+                populateWordList(words);
+                
+                
+            });
+            
+        </script>
+    </body>
+</html>
