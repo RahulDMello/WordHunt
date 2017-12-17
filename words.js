@@ -1,3 +1,5 @@
+// Scripts needs Jquery
+
 word_list = [
     "people",
     "history",
@@ -1526,10 +1528,198 @@ word_list = [
     "yesterday"
 ];
 
-function getWords(count=14){
+var direction = ["u","d","l","r","ul","ur","dl","dr"];
+var words_so_far = [];
+var direction_ind = 0;
+var startCol = 0;
+var startRow = 0;
+    
+
+            
+function getOneGrid(col=12, row=12) {
+    var grid = [];
+    for(var i = 0; i < col; i++) {
+        grid.push([]);
+        for(var j = 0; j < row; j++) {
+            grid[i].push(1);
+        }
+    }
+    return grid;
+}
+
+
+function getRandomGrid(col=12, row=12) {
+    
+    alert("getRandomGrid");
+    
+    var grid = [];
+    for(var i = 0; i < col; i++) {
+        grid.push([]);
+        for(var j = 0; j < row; j++) {
+            grid[i].push(String.fromCharCode(Math.floor(97 + Math.random() * 26)));
+        }
+    }
+    return grid;
+}
+
+
+function updateWordGrid(grid, word) {
+    
+    alert("updateWordGrid");
+    
+    direction_ind = Math.floor(Math.random() * direction.length);
+    
+    var minCol = 0;
+    var maxCol = 11;
+    var minRow = 0;
+    var maxRow = 11;
+    
+    switch(direction[direction_ind]) {
+        case 'u':
+            minCol = word.length - 1;
+            break;
+        case 'd':
+            maxCol = 11 - words.length;
+            break;
+        case 'l':
+            minRow = words.length - 1;
+            break;
+        case 'r':
+            maxRow = 11 - words.length;
+            break;
+        case 'ul':
+            minRow = words.length - 1;
+            minCol = words.length - 1;
+            break;
+        case 'ur':
+            minCol = words.length - 1;
+            maxRow = 11 - words.length;
+            break;
+        case 'dl':
+            maxCol = 11 - words.length;
+            minRow = words.length - 1;
+            break;
+        case 'dr':
+            maxRow = 11 - words.length;
+            maxCol = 11 - words.length;
+            break;
+    }
+    
+    switch(direction[direction_ind]) {
+        case 'u':
+        case 'l':
+        case 'ul':
+            startCol = minCol + Math.floor(Math.random() * (maxCol - minCol - 1));
+            startRow = minRow + Math.floor(Math.random() * (maxRow - minRow - 1));
+            break;
+        case 'd':
+        case 'r':
+        case 'dr':
+            startCol = maxCol - Math.floor(Math.random() * (maxCol - minCol - 1));
+            startRow = maxRow - Math.floor(Math.random() * (maxRow - minRow - 1));
+            break;
+        case 'dl':
+        case 'dr':
+            startCol = maxCol - Math.floor(Math.random() * (maxCol - minCol - 1));
+            startRow = minRow + Math.floor(Math.random() * (maxRow - minRow - 1));
+            break;
+        
+    }
+    
+    console.log(startCol + ", " + startRow);
+    
+    var i = startRow;
+    var j = startCol;
+    
+    $.each(word.split(''), function(ind2, letter) {
+        switch(direction[direction_ind]) {
+            case 'u':
+                grid[i][j] = letter;
+                i--;
+                break;
+            case 'd':
+                grid[i][j] = letter;
+                i++;
+                break;
+            case 'l':
+                grid[i][j] = letter;
+                j--;
+                break;
+            case 'r':
+                grid[i][j] = letter;
+                j++;
+                break;
+            case 'ul':
+                grid[i][j] = letter;
+                j--;
+                i--;
+                break;
+            case 'ur':
+                grid[i][j] = letter;
+                i--;
+                j++;
+                break;
+            case 'dl':
+                grid[i][j] = letter;
+                i++;
+                j--;
+                break;
+            case 'dr':
+                grid[i][j] = letter;
+                j++;
+                i++;
+                break;
+        }
+    })
+    
+    return grid;
+}
+
+
+function getWords(count=1) {
+    
+    if(words_so_far.length == word_list.length) {
+        words_so_far = [];
+    }
+    
     var result = [];
-    for(var i=0;i<count;i++){
-        result.push(word_list[Math.floor(Math.random() * 1525)]);
+    for(var i=0;i<count;i++) {
+        var word = "";
+        do {
+            var word = word_list[Math.floor(Math.random() * 1525)];
+        } while(false);
+        result.push(word);
+        words_so_far.push(word);
     }
     return result;
 }
+
+
+function getWordsGrid(words, col = 12, row = 12) {
+    
+    alert("getWordsGrid");
+    
+    var word_grid = getRandomGrid();
+    
+    $.each(words, function(ind, word) {
+        
+        word_grid = updateWordGrid(word_grid, word)
+        
+    })
+    
+    return word_grid;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
