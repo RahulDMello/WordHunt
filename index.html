@@ -25,30 +25,32 @@
                 color: white;
                 background-color: #90949C;
             }
-        
-            @media screen and (min-width: 768px) {
-                #list {
-                    columns: 2;
-                    -webkit-columns: 2;
-                    -moz-columns: 2;
-                }
+            
+            #list {
+                width: 100%;
+                text-align: center;
             }
-            @media screen and (min-width: 992px) {
-                #list {
-                    columns: 3;
-                    -webkit-columns: 3;
-                    -moz-columns: 3;
-                }
-            }
+            
         </style>
         
     </head>
     <body>
-        <h1>Word Hunt</h1>
+    
+        <!-- WIN MODAL -->
+        <div class="modal fade" id="win-modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content text-center">
+              <h1 class="display-2">YOU WIN</h1>
+              <p>Next hunt in 2 secs...</p>
+            </div>
+          </div>
+        </div>
+    
+        <h6 style="padding: 5px 0px 0px 30px">Find the word - </h6>
         <div class="container">
+            <div id="list"></div>
             <table class="table borderless" id="letter-grid">
             </table>
-            <div id="list"></div>
         </div>
         
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -79,13 +81,13 @@
             }
             
             function populateWordList(list) {
-                var list_html = "<ol>";
+                var list_html = "";
                 
                 $.each(list, function(ind, value) {
-                    list_html += "<li> " + value + " </li>";
+                    list_html += '<h2> "' + value + '" </h2> <br>';
                 });
                 
-                list_html += "</ol>";
+                list_html += "";
                 $("#list").html(list_html);
             }
             
@@ -176,8 +178,8 @@
                             check = check && $("#"+id).hasClass("highlight");
                         })
                         if (check) {
-                            alert("VICTORY");
-                            location.reload();
+                            $("#win-modal").modal('show');
+                            setTimeout(function(){location.reload();}, 2000) // 2 secs
                         }
                     }
                     
