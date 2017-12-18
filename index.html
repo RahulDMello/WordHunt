@@ -31,6 +31,10 @@
                 text-align: center;
             }
             
+            img {
+                height: 24px;
+            }
+            
         </style>
         
     </head>
@@ -52,6 +56,20 @@
             <table class="table borderless" id="letter-grid">
             </table>
         </div>
+        
+        <footer class="row-footer">
+            <div class="container head-foot">
+                <div class="row row-content text-center d-flex align-self-center mr-3" id="me">
+                    <div class="btn-group mx-auto social-media"> 
+                        <a class="btn" href="http://rahulwordpressdemo-com.stackstaging.com/wordpress/" target="_blank"><img alt="user" class="social-media-icon" src="images/user.png"></img></a>
+                        <a class="btn btn-social-icon" href="https://www.facebook.com/anonDfeline" target="_blank"><img class="social-media-icon" src="images/Rahul_DMello_f.png"></img></a>
+                        <a class="btn btn-social-icon" href="https://www.linkedin.com/in/rvdmello96/" target="_blank"><img class="social-media-icon" src="images/lin.png"></img></a>
+                        <a class="btn btn-social-icon" href="https://twitter.com/anonDfeline" target="_blank"><img class="social-media-icon" src="images/t.png"></img></a> 
+                        <a class="btn btn-social-icon" href="https://github.com/anonDfeline" target="_blank"><img class="social-media-icon" src="images/github.png"></img></i></a> 
+                    </div>
+                </div>
+            </div>
+        </footer>
         
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -166,8 +184,6 @@
                 populateWordList(words);
                 
                 words_ids = getAnswerIds(startCol, startRow, direction[direction_ind], words[0].length)
-                
-                console.log(direction[direction_ind])
             
                 $(function () {
                     var isMouseDown = false;

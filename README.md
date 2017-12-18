@@ -1,0 +1,1 @@
+A word hunt game! A single word is given for each grid. You have to find it and the game will provide with another hunt! Live at http://wordhunt-com.stackstaging.com/

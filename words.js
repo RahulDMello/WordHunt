@@ -1574,13 +1574,13 @@ function updateWordGrid(grid, word) {
             minRow = word.length - 1;
             break;
         case 'd':
-            maxRow = 11 - word.length;
+            maxRow = 10 - word.length;
             break;
         case 'l':
             minCol = word.length - 1;
             break;
         case 'r':
-            maxCol = 11 - word.length;
+            maxCol = 10 - word.length;
             break;
         case 'ul':
             minRow = word.length - 1;
@@ -1588,29 +1588,20 @@ function updateWordGrid(grid, word) {
             break;
         case 'ur':
             minRow = word.length - 1;
-            maxCol = 11 - word.length;
+            maxCol = 10 - word.length;
             break;
         case 'dl':
-            maxRow = 11 - word.length;
+            maxRow = 10 - word.length;
             minCol = word.length - 1;
             break;
         case 'dr':
-            maxRow = 11 - word.length;
-            maxCol = 11 - word.length;
+            maxRow = 10 - word.length;
+            maxCol = 10 - word.length;
             break;
     }
     
     startCol = minCol + Math.floor(Math.random() * (maxCol - minCol));
     startRow = minRow + Math.floor(Math.random() * (maxRow - minRow));
-    
-    console.log({
-        'minRow': minRow,
-        'minCol': minCol,
-        'maxRow': maxRow,
-        'maxCol': maxCol
-    })
-    
-    console.log(startCol + ", " + startRow);
     
     var i = startRow;
     var j = startCol;
@@ -1677,8 +1668,6 @@ function getWords(count=1) {
 function getWordsGrid(words, col = 12, row = 12) {
     
     var word_grid = getRandomGrid();
-    
-    console.log(word_grid);
     
     $.each(words, function(ind, word) {
         
