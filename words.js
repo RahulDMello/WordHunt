@@ -1529,7 +1529,6 @@ word_list = [
 ];
 
 var direction = ["u","d","l","r","ul","ur","dl","dr"];
-var words_so_far = [];
 var direction_ind = 0;
 var startCol = 0;
 var startRow = 0;
@@ -1663,10 +1662,6 @@ function updateWordGrid(grid, word) {
 
 function getWords(count=1) {
     
-    if(words_so_far.length == word_list.length) {
-        words_so_far = [];
-    }
-    
     var result = [];
     for(var i=0;i<count;i++) {
         var word = "";
@@ -1674,7 +1669,6 @@ function getWords(count=1) {
             var word = word_list[Math.floor(Math.random() * 1525)];
         } while(false);
         result.push(word);
-        words_so_far.push(word);
     }
     return result;
 }

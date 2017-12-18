@@ -169,22 +169,42 @@
                 
                 console.log(direction[direction_ind])
             
-                $("td").click(function(){
-                    $(this).toggleClass("highlight");
-                    
-                    if($(".highlight").length == words[0].length) {
-                        var check = true;
-                        $.each(words_ids, function(ind, id){
-                            check = check && $("#"+id).hasClass("highlight");
+                $(function () {
+                    var isMouseDown = false;
+                    $(".borderless td")
+                        .mousedown(function () {
+                            isMouseDown = true;
+                            $(this).toggleClass("highlight");
+                            return false; // prevent text selection
                         })
-                        if (check) {
-                            $("#win-modal").modal('show');
-                            setTimeout(function(){location.reload();}, 2000) // 2 secs
+                        .mouseover(function () {
+                            if (isMouseDown) {
+                                $(this).toggleClass("highlight");
+                            }
+                        })
+                        .click(function(){
+                            if (isMouseDown) {
+                                $(this).toggleClass("highlight");
+                            }
+                        })
+                        .bind("selectstart", function () {
+                            return false; // prevent text selection in IE
+                        });
+
+                    $(document).mouseup(function () {
+                        isMouseDown = false;
+                        if($(".highlight").length == words[0].length) {
+                            var check = true;
+                            $.each(words_ids, function(ind, id){
+                                check = check && $("#"+id).hasClass("highlight");
+                            })
+                            if (check) {
+                                $("#win-modal").modal('show');
+                                setTimeout(function(){location.reload();}, 2000) // 2 secs
+                            }
                         }
-                    }
-                    
-                    
-                })
+                    });
+                });
                 
             });
             
